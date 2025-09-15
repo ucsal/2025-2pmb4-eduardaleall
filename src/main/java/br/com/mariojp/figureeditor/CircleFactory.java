@@ -1,5 +1,5 @@
 package br.com.mariojp.figureeditor;
 
-public interface CircleFactory {
+public class CircleFactory implements ShapeFactory {
 
 }

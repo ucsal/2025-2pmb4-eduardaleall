@@ -1,5 +1,5 @@
 package br.com.mariojp.figureeditor;
 
-public interface RectangleFactory {
+public class RectangleFactory implements ShapeFactory{
 
 }
