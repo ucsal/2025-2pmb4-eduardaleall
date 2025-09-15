@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 public class RectangleFactory implements ShapeFactory{
     @Override
     public Shape createShape (Point p) {
-        return null;
+        int size = 60;
+        return new Rectangle2D.Double(p.x, p.y, size, size);
     }
 }
