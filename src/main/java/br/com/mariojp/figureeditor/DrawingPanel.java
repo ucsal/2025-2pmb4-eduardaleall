@@ -15,9 +15,10 @@ class DrawingPanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int DEFAULT_SIZE = 60;
     private final List<Shape> shapes = new ArrayList<>();
-    private Point startDrag = null;
+    private ShapeFactory shapeFactory;
 
-    DrawingPanel() {
+    DrawingPanel(ShapeFactory initialFactory) {
+        this.shapeFactory = initialFactory;
         
         setBackground(Color.WHITE);
         setOpaque(true);
@@ -25,9 +26,9 @@ class DrawingPanel extends JPanel {
 
         var mouse = new MouseAdapter() {
             @Override public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 1 && startDrag == null) {
-                    int size = Math.max(Math.min(DEFAULT_SIZE, DEFAULT_SIZE), 10);
-                    Shape s =  new Ellipse2D.Double(e.getPoint().x, e.getPoint().y, size, size);
+                if (e.getClickCount() == 1) {
+                    Shape s = shapeFactory.createShape(e.getPoint());
+
                     //return new Rectangle2D.Double(e.getPoint().x, e.getPoint().y, Math.max(DEFAULT_SIZE, 10), Math.max(DEFAULT_SIZE, 10));
                     shapes.add(s);
                     repaint();
@@ -44,6 +45,10 @@ class DrawingPanel extends JPanel {
         repaint();
     }
 
+     void setShapeFactory(ShapeFactory factory) {
+        this.shapeFactory = factory;
+    } //método de trocar a fabrica
+    
     @Override protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g.create();
